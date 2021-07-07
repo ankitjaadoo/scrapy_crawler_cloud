@@ -1,4 +1,4 @@
-name: Upload Web Crawler files to S3 bucket
+name: Create S3 bucket and Upload Web Crawler files to it
 
 on:
   push:
