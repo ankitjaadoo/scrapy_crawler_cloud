@@ -19,7 +19,8 @@ jobs:
       with:
         playbook: crawler.yml
         directory: ../../
-        inventory: [all]
+        inventory: |
+          [all]
 
   deploy:
     runs-on: ubuntu-latest
