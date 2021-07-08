@@ -3,9 +3,9 @@
   hosts: all
   tasks:
   - name: Run script to crawl the website
-      shell: wget --mirror -o ansible/logfile.txt -p -P ansible/ https://adappt.co.uk/
-      args:
-        warn: false
+    shell: wget --mirror -o ansible/logfile.txt -p -P ansible/ https://adappt.co.uk/
+    args:
+      warn: false
 
   - name: zip the saved folder
     archive:

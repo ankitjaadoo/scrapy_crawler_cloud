@@ -14,10 +14,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
     
-    - name: Run Ansible Playbook
-      uses: arillso/action.playbook@master
+    - name: Run playbook
+      uses: dawidd6/action-ansible-playbook@v2
       with:
-        playbook: ./ansible/crawler.yml
+        playbook: crawler.yml
+        directory: ./ansible/
+        inventory: |
+          [all]
 
   deploy:
     runs-on: ubuntu-latest
