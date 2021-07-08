@@ -15,7 +15,9 @@ jobs:
       uses: actions/checkout@v1
     
     - name: Run Ansible Playbook
-      run: ansible-playbook crawler.yml
+      uses: arillso/action.playbook@master
+      with:
+        playbook: crawler.yml
 
   deploy:
     runs-on: ubuntu-latest
