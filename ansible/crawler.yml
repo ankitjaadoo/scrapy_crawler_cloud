@@ -1,6 +1,7 @@
 ---
 - name: crawl the website and zip the files obtained
-  hosts: all
+  hosts: localhost
+  connection: local
   tasks:
   - name: Run script to crawl the website
     shell: wget --mirror -o ../../ansible/logfile.txt -p -P ../../ansible/ https://adappt.co.uk/
