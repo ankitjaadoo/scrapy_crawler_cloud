@@ -4,7 +4,7 @@
   connection: local
   tasks:
   - name: Run script to crawl the website
-    shell: wget --mirror -o ansible/logfile.txt -p -P ansible/ https://adappt.co.uk/
+    shell: wget --mirror -p -P ansible/ https://adappt.co.uk/
     args:
       warn: false
 
