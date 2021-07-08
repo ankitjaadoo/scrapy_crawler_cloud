@@ -1,5 +1,5 @@
 ---
-- name: crawl website and zip the files obtained
+- name: crawl the website and zip the files obtained
   hosts: all
   tasks:
   - name: Run script to crawl the website
