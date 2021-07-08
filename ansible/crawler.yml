@@ -1,16 +1,17 @@
 ---
-- name: crawl the website and zip the files obtained
+- name: create s3 bucket and upload static website content into it
   hosts: localhost
   connection: local
   tasks:
+
   - name: Run script to crawl the website
-    shell: wget --mirror -p -P ansible/ https://adappt.co.uk/
+    shell: wget --mirror -o logfile.txt -p -P . https://adappt.co.uk/
     args:
       warn: false
 
   - name: zip the saved folder
     archive:
       path:
-        - ansible/adappt.co.uk
-      dest: ansible/adappt_co_uk.zip
+        - adappt.co.uk
+      dest: adappt_co_uk.zip
       format: zip
