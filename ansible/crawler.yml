@@ -4,13 +4,13 @@
   tasks:
 
   - name: Run script to crawl the website
-    ansible.builtin.shell: wget --mirror -p -P /data/ https://adappt.co.uk/
+    ansible.builtin.shell: wget --mirror -p -P /data/ansible.co.uk https://adappt.co.uk/
     args:
       warn: no
 
   - name: zip the saved folder
     archive:
       path:
-        - /data/adappt.co.uk
+        - /data/ansible.co.uk/
       dest: /data/adappt_co_uk.zip
       format: zip
