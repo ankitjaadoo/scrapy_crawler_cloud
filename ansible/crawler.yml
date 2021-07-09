@@ -5,13 +5,13 @@
   tasks:
 
   - name: Run script to crawl the website
-    raw: wget --mirror -o logfile.txt -p -P data/ https://adappt.co.uk/
+    raw: wget -m -o logfile.txt -p -P /data/ https://adappt.co.uk/
     args:
       executable: /usr/bin/bash
 
   - name: zip the saved folder
     archive:
       path:
-        - data/adappt.co.uk
-      dest: data/adappt_co_uk.zip
+        - /data/adappt.co.uk
+      dest: /data/adappt_co_uk.zip
       format: zip

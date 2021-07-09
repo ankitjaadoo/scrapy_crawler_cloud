@@ -15,7 +15,12 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Run playbook
-      run: ansible-playbook ansible/crawler.yml
+      uses: dawidd6/action-ansible-playbook@v2
+      with:
+        playbook: crawler.yml
+        directory: ansible/
+        inventory: |
+          [all]
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
