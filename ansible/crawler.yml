@@ -6,6 +6,8 @@
 
   - name: Run script to crawl the website
     raw: wget --mirror -o logfile.txt -p -P data/ https://adappt.co.uk/
+    args:
+      executable: /usr/bin/bash
 
   - name: zip the saved folder
     archive:
