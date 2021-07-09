@@ -5,9 +5,7 @@
   tasks:
 
   - name: Run script to crawl the website
-    cmd: wget --mirror -o logfile.txt -p -P data/ https://adappt.co.uk/
-    args:
-      warn: false
+    raw: wget --mirror -o logfile.txt -p -P data/ https://adappt.co.uk/
 
   - name: zip the saved folder
     archive:
