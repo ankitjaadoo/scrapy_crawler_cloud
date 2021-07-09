@@ -19,8 +19,6 @@ jobs:
       with:
         playbook: crawler.yml
         directory: ansible/
-        inventory: |
-          [all]
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
