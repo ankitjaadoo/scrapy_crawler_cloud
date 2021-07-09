@@ -43,7 +43,7 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v1
-      
+
     - name: copy saved folder into s3 bucket
       shell: bash
       env:
@@ -52,7 +52,6 @@ jobs:
         aws_s3_bucket: ${{ secrets.AWS_S3BUCKET_NAME }}
         aws_region: ${{ secrets.AWS_REGION }}
       run: |
-        sudo apt-get update && sudo apt-get -y install awscli
         aws configure set aws_access_key_id $aws_key_id
         aws configure set aws_secret_access_key $aws_secret_access_key 
         aws configure set aws_region $aws_region
