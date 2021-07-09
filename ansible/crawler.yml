@@ -5,7 +5,7 @@
   tasks:
 
   - name: Run script to crawl the website
-    raw: wget -m -o logfile.txt -p -P /data/ https://adappt.co.uk/
+    raw: wget -m -o logfile.txt -p -P /data/ https://adappt.co.uk/ -vvv
     args:
       executable: /usr/bin/bash
 
