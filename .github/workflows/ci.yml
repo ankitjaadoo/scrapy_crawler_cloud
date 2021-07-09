@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v1
     
     - name: wget the website
-      run: wget -m --adjust-extension --page-requisites --no-parent -P ansible/ https://adappt.co.uk
+      run: wget -m -p -x https://adappt.co.uk -P ansible/
 
   upload:
   
