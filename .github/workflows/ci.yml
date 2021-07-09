@@ -16,19 +16,12 @@ jobs:
       uses: actions/checkout@v1
     
     - name: wget the website
-      run: wget -m --adjust-extension --page-requisites --no-parent -P ansible/ https://adappt.co.uk
-
-    - name: Checkout
-      uses: actions/checkout@v1
+      run: wget -m --adjust-extension --page-requisites --no-parent -P . https://adappt.co.uk
 
   upload:
   
     name: Upload files to s3
     runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v1
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -40,7 +33,4 @@ jobs:
     - name: Deploy static site to S3 bucket
       run: |
         aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
-        aws s3 sync ansible/adappt.co.uk s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
-
-    - name: Checkout
-      uses: actions/checkout@v1
+        aws s3 sync adappt.co.uk s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
