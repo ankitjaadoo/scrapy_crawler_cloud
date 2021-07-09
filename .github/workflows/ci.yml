@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v1
     
     - name: wget the website
-      run: wget --mirror -nv -p -P ansible/ https://adappt.co.uk
+      run: wget --mirror --convert-links --adjust-extension --page-requisites --no-parent -P ansible/ https://adappt.co.uk
 
   upload:
   
