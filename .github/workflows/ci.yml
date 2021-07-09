@@ -7,43 +7,50 @@ on:
 
 jobs:
 
-  run-playbook-and-deploy:
+  Crawl website:
+    name: Crawl the web site
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
       uses: actions/checkout@v1
       
-    - name: create s3 bucket and upload static website content into it
-      hosts: localhost
-      connection: local
-      tasks:
-      - name: Run script to crawl the website
-        shell: wget --mirror -o ansible/logfile.txt -p -P ansible/ https://adappt.co.uk/
-        args:
-          warn: false
+  
+    - name: wget
+      uses: wei/wget@v1
+      with:
+        args: -O logfile.txt -P ./ansible/ https://adappt.co.uk
+  
+  zip files:
+    
+    name: Zips the Saved file
+    runs-on: ubuntu-latest
 
-      - name: zip the saved folder
-        archive:
-          path:
-            - ansible/adappt.co.uk
-          dest: ansible/adappt_co_uk.zip
-          format: zip
-        notify:
-        - copy saved folder into s3 bucket
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v1
 
-      handlers:
-        - name: copy saved folder into s3 bucket
-          shell: bash
-          env:
-            aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_ID }}
-            aws_s3_bucket: ${{ secrets.AWS_S3BUCKET_NAME }}
-            aws_region: ${{ secrets.AWS_REGION }}
-          run: |
-            sudo apt-get update && sudo apt-get -y install awscli
-            aws configure set aws_access_key_id $aws_key_id
-            aws configure set aws_secret_access_key $aws_secret_access_key 
-            aws configure set aws_region $aws_region
-            aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
-            aws s3 sync ansible/adappt_co_uk.zip s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
+    - name: Prepares a zip file
+      uses: montudor/action-zip@v1.0.0
+      with:
+        args: zip -qq -r adappt_co_uk.zip . -i /ansible/adappt.co.uk
+
+  Upload:
+    name: Upload files to s3
+    runs on: ubuntu-latest
+
+    steps:
+    - name: copy saved folder into s3 bucket
+      shell: bash
+      env:
+        aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_ID }}
+        aws_s3_bucket: ${{ secrets.AWS_S3BUCKET_NAME }}
+        aws_region: ${{ secrets.AWS_REGION }}
+      run: |
+        sudo apt-get update && sudo apt-get -y install awscli
+        aws configure set aws_access_key_id $aws_key_id
+        aws configure set aws_secret_access_key $aws_secret_access_key 
+        aws configure set aws_region $aws_region
+        aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
+        aws s3 sync ansible/adappt_co_uk.zip s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
