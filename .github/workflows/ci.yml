@@ -15,11 +15,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
       
-  
-    - name: wget
-      uses: wei/wget@v1
-      with:
-        args: -O ansible/logfile.txt -P ansible/ https://adappt.co.uk
+    - name: wget the website
+      run: wget --mirror -o ansible/logfile.txt -p -P ansible/ https://adappt.co.uk
   
   zip-files:
   
@@ -33,7 +30,7 @@ jobs:
     - name: Prepares a zip file
       uses: montudor/action-zip@v1.0.0
       with:
-        args: zip -qq -r adappt_co_uk.zip . -i /ansible/adappt.co.uk
+        args: zip -qq -r adappt_co_uk.zip . -i ansible/adappt.co.uk
 
   upload:
   
@@ -44,16 +41,14 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v1
 
-    - name: copy saved folder into s3 bucket
-      shell: bash
-      env:
-        aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_ID }}
-        aws_s3_bucket: ${{ secrets.AWS_S3BUCKET_NAME }}
-        aws_region: ${{ secrets.AWS_REGION }}
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Deploy static site to S3 bucket
       run: |
-        aws configure set aws_access_key_id $aws_key_id
-        aws configure set aws_secret_access_key $aws_secret_access_key 
-        aws configure set aws_region $aws_region
         aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
-        aws s3 sync ansible/adappt_co_uk.zip s3://${{ secrets.AWS_S3BUCKET_NAME }} --acl public-read
+        aws s3 sync ansible/data/adappt_co_uk.zip s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
