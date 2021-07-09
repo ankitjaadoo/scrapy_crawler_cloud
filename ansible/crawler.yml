@@ -4,7 +4,7 @@
   tasks:
 
   - name: Run script to crawl the website
-    ansible.builtin.shell: wget --mirror -x -N -p -P /data https://adappt.co.uk/
+    ansible.builtin.shell: wget -o logfile.txt -d --mirror --convert-links -N -p -P /data -x https://adappt.co.uk/
     args:
       warn: no
 
