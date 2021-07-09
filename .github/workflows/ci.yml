@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  crawl-website:
+  crawl-website-and-upload-to-s3:
     name: Crawl the web site
     runs-on: ubuntu-latest
 
@@ -15,23 +15,36 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
     
-    - name: wget the website
-      run: wget -m -p -x https://adappt.co.uk -P ansible/
-
-  upload:
-  
-    name: Upload files to s3
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
-
-    - name: Deploy static site to S3 bucket
+    - name: wget the website and upload content to s3
+      shell: bash
+        env:
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_ID }}
+          aws_s3_bucket: ${{ secrets.AWS_S3BUCKET_NAME }}
+          aws_region: ${{ secrets.AWS_S3BUCKET_NAME }}
+      # run: wget -m -p -x https://adappt.co.uk -P ansible/
       run: |
+        wget -m -p -x https://adappt.co.uk -P ansible/
+        aws configure set aws_access_key_id $aws_key_id
+        aws configure set aws_secret_access_key $aws_secret_access_key 
+        aws configure set aws_region $aws_region
         aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
         aws s3 sync ansible/adappt.co.uk s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
+
+  # upload:
+  
+  #   name: Upload files to s3
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - name: Configure AWS Credentials
+  #     uses: aws-actions/configure-aws-credentials@v1
+  #     with:
+  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #       aws-region: ${{ secrets.AWS_REGION }}
+
+  #   - name: Deploy static site to S3 bucket
+  #     run: |
+  #       aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
+  #       aws s3 sync ansible/adappt.co.uk s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
