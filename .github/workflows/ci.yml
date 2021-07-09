@@ -19,10 +19,10 @@ jobs:
     - name: wget
       uses: wei/wget@v1
       with:
-        args: -O logfile.txt -P ./ansible/ https://adappt.co.uk
+        args: -O ansible/logfile.txt -P ansible/ https://adappt.co.uk
   
   zip-files:
-    
+  
     name: Zips the Saved file
     runs-on: ubuntu-latest
 
@@ -36,10 +36,14 @@ jobs:
         args: zip -qq -r adappt_co_uk.zip . -i /ansible/adappt.co.uk
 
   upload:
+  
     name: Upload files to s3
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout Code
+      uses: actions/checkout@v1
+      
     - name: copy saved folder into s3 bucket
       shell: bash
       env:
@@ -53,4 +57,4 @@ jobs:
         aws configure set aws_secret_access_key $aws_secret_access_key 
         aws configure set aws_region $aws_region
         aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
-        aws s3 sync ansible/adappt_co_uk.zip s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
+        aws s3 sync ansible/adappt_co_uk.zip s3://${{ secrets.AWS_S3BUCKET_NAME }} --acl public-read
