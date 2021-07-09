@@ -17,11 +17,11 @@ jobs:
     
     - name: wget the website and upload content to s3
       shell: bash
-        env:
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_ID }}
-          aws_s3_bucket: ${{ secrets.AWS_S3BUCKET_NAME }}
-          aws_region: ${{ secrets.AWS_S3BUCKET_NAME }}
+      env:
+        aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_ID }}
+        aws_s3_bucket: ${{ secrets.AWS_S3BUCKET_NAME }}
+        aws_region: ${{ secrets.AWS_S3BUCKET_NAME }}
       # run: wget -m -p -x https://adappt.co.uk -P ansible/
       run: |
         wget -m -p -x https://adappt.co.uk -P ansible/
