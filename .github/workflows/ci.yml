@@ -37,7 +37,7 @@ jobs:
 
   Upload:
     name: Upload files to s3
-    runs on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: copy saved folder into s3 bucket
