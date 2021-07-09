@@ -14,20 +14,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-      
+    
     - name: wget the website
-      run: wget --mirror -p -P ansible/ https://adappt.co.uk
-  
-  # zip-files:
-  
-  #   name: Zips the Saved file
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #   - name: Prepares a zip file
-  #     uses: montudor/action-zip@v1.0.0
-  #     with:
-  #       args: zip -qq -r adappt_co_uk.zip . -i ansible/adappt.co.uk
+      run: wget --mirror -nv -p -P ansible/ -x https://adappt.co.uk
 
   upload:
   
