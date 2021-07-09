@@ -1,0 +1,9 @@
+---
+- name: crawl website
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Run script to crawl the website
+    shell: wget -m -o logfile.txt -p -P . https://adappt.co.uk/
+    args:
+      warn: false
