@@ -1,11 +1,10 @@
 ---
 - name: create s3 bucket and upload static website content into it
   hosts: localhost
-  connection: local
   tasks:
 
   - name: Run script to crawl the website
-    ansible.builtin.shell: wget -m -o logfile.txt -p -P /data/ https://adappt.co.uk/ -vvv
+    ansible.builtin.shell: wget --mirror -p -P /data/ https://adappt.co.uk/
     args:
       warn: no
 
