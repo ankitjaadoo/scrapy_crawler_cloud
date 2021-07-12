@@ -1,4 +1,3 @@
-  
 #!/bin/bash
 
 # echo "$VAULT_PASS" > ~/.vault_pass.txt
