@@ -25,5 +25,5 @@ jobs:
     - uses: actions/checkout@v1
     - uses: ./.github/actions/ansible
       with: 
-        playbook: playbook.yml
+        playbook: crawler.yml
         inventory: localhost
