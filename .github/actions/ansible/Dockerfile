@@ -1,4 +1,4 @@
-FROM ankitjaadoo/tomcat01
+FROM ankitjaadoo/ansible-in-containers
 
 # RUN yum check-update; \
 #    yum install -y gcc libffi-devel python-devel openssl-devel epel-release; \
