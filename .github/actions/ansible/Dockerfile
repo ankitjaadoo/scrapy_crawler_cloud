@@ -22,6 +22,6 @@ ENV ANSIBLE_RETRY_FILES_ENABLED false
 
 COPY ./entrypoint.sh /entrypoint.sh
 
-#ENTRYPOINT ["bash","/entrypoint.sh"]
+ENTRYPOINT ["bash","/entrypoint.sh"]
 
-ENTRYPOINT ["ansible-playbook","crawler.yml"]
+#ENTRYPOINT ["ansible-playbook","crawler.yml"]
