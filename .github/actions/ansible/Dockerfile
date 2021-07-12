@@ -18,7 +18,7 @@ ENV ANSIBLE_HOST_KEY_CHECKING false
 ENV ANSIBLE_GATHERING smart
 ENV ANSIBLE_RETRY_FILES_ENABLED false
 
-#WORKDIR /ansible
+WORKDIR /ansible
 
 COPY ./entrypoint.sh /entrypoint.sh
 
