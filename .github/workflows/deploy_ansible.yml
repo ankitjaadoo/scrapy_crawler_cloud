@@ -33,7 +33,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Build docker images
-      run: docker build -f ./.github/actions/ansible/Dockerfile
+      run: docker build -f ./.github/actions/ansible/Dockerfile.latest -t ankitjaadoo/ansible-container .
 
     - name: Build and push
       id: docker_build
