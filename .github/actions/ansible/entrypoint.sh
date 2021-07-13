@@ -6,4 +6,4 @@
 # chmod 0600 ~/.ssh/id_rsa
 
 #printenv
-ansible-playbook playbook.yml
+ansible-playbook crawler.yml
