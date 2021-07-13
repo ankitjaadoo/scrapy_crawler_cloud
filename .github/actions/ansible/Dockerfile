@@ -1,4 +1,4 @@
-FROM  ankitjaadoo/ansible-container:latest
+FROM  ankitjaadoo/ansible-container
 
 ENV ANSIBLE_HOST_KEY_CHECKING false
 ENV ANSIBLE_GATHERING smart
