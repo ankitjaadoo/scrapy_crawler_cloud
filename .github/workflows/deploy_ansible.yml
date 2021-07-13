@@ -33,7 +33,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Build docker images
-      run: docker build -f Dockerfile
+      run: docker build Dockerfile
 
     - name: Build and push
       id: docker_build
