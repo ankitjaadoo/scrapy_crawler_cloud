@@ -33,7 +33,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Build docker images
-      run: docker build -t local < ./.github/actions/ansible/devcontainer/Dockerfile
+      run: docker build -t local < ./.github/actions/ansible/Dockerfile
 
     - name: Build and push
       id: docker_build
