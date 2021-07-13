@@ -36,7 +36,7 @@ jobs:
         context: ./
         file: ./.github/actions/ansible/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ansible-container:latest
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ansible-container
   deployAnsible:
     needs: build
     runs-on: ubuntu-latest
