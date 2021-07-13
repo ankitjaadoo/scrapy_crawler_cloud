@@ -1,4 +1,4 @@
-FROM  ankitjaadoo/ansible-container
+FROM  ankitjaadoo/ansible-container:latest
 
 COPY ./entrypoint.sh /entrypoint.sh
 
