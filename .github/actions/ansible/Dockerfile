@@ -1,9 +1,9 @@
-FROM  ankitjaadoo/ansible-container:latest
+FROM alpine 
 
-ENV ANSIBLE_HOST_KEY_CHECKING false
-ENV ANSIBLE_GATHERING smart
-ENV ANSIBLE_RETRY_FILES_ENABLED false
+ENV ANSIBLE_HOST_KEY_CHECKING=False
 
-COPY ./entrypoint.sh /entrypoint.sh
+RUN apk add ansible gcc python3-dev libc-dev libffi-dev openssl-dev
+RUN pip3 install --upgrade paramiko
+COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["bash","/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
