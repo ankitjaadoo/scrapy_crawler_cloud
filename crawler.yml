@@ -6,19 +6,14 @@
     shell: wget -m -o logfile.txt -p -P . https://adappt.co.uk/
     args:
       warn: false
-
   
   - name: Copy file to S3
-    shell: bash
-    env:
-      aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_ID }}
-      aws_s3_bucket: ${{ secrets.AWS_S3BUCKET_NAME }}
-      aws_region: ${{ secrets.AWS_REGION }}
-    run: |
+    shell: |
       sudo apt-get update && sudo apt-get -y install awscli
-      aws configure set aws_access_key_id $aws_key_id
-      aws configure set aws_secret_access_key $aws_secret_access_key 
-      aws configure set aws_region $aws_region
-      aws s3 mb s3://${{ $aws_s3_bucket }}
-      aws s3 sync ./adappt.co.uk s3://${{ $aws_s3_bucket }} --delete
+      aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY_ID }}
+      aws configure set aws_region ${{ secrets.AWS_REGION }}
+      aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
+      aws s3 sync ./adappt.co.uk s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
+    args:
+      warn: false
