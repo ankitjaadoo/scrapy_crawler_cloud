@@ -15,11 +15,6 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v2
 
-    - name: Lint Ansible Playbook
-      uses: ansible/ansible-lint-action@master
-      with:
-        targets: ./crawler.yml
-
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     
