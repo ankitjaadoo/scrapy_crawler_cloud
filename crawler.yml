@@ -8,13 +8,13 @@
       warn: false
 
   - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+    uses: aws-actions/configure-aws-credentials@v1
+    with:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Deploy static site to S3 bucket
-      run: |
-        aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
-        aws s3 sync /adappt.co.uk s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
+  - name: Deploy static site to S3 bucket
+    run: |
+      aws s3 mb s3://${{ secrets.AWS_S3BUCKET_NAME }}
+      aws s3 sync /adappt.co.uk s3://${{ secrets.AWS_S3BUCKET_NAME }} --delete
