@@ -16,7 +16,7 @@ jobs:
 
       - name: crawl the website
         shell: bash
-        run: wget -m -p -P ./ https://adappt.co.uk/
+        run: wget -m -p -P ./ https://adappt.co.uk/ || true
 
       - name: Copy file to S3
         shell: bash
